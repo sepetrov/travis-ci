@@ -2,6 +2,8 @@ os: linux
 
 dist: bionic
 
+language: shell
+
 branches:
   only:
     - master
