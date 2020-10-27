@@ -4,7 +4,7 @@ dist: bionic
 
 jobs:
   include:
-    - stage: S1
+    - stage: S0
       script: env | sort
 
     - stage: S1
