@@ -7,30 +7,30 @@ jobs:
     - stage: S0
       script: env | sort
 
-    - stage: S1
+    - stage: S1 - branch = master
       script: env | sort
       if: branch = master
 
-    - stage: S2
+    - stage: S2 - type IN (pull_request)
       script: env | sort
       if: type IN (pull_request)
 
-    - stage: S3
+    - stage: S3 - type IN (push)
       script: env | sort
       if: type IN (push)
 
-    - stage: S4
+    - stage: S4 - type IN (pull_request) AND branch = master
       script: env | sort
       if: type IN (pull_request) AND branch = master
 
-    - stage: S5
+    - stage: S5 - type IN (push) AND branch = master
       script: env | sort
       if: type IN (push) AND branch = master
 
-    - stage: S6
+    - stage: S6 - type IN (pull_request) AND branch =~ ^test-
       script: env | sort
       if: type IN (pull_request) AND branch =~ ^test-
 
-    - stage: S7
+    - stage: S7 - type IN (push) AND branch =~ ^test-
       script: env | sort
       if: type IN (push) AND branch =~ ^test-
