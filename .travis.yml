@@ -2,6 +2,10 @@ os: linux
 
 dist: bionic
 
+branches:
+  only:
+    - master
+
 jobs:
   include:
     - stage: S0
