@@ -10,6 +10,9 @@ jobs:
   include:
     - stage: S1
       script: env | sort
+
+    - stage: S1
+      script: env | sort
       if: branch = master
 
     - stage: S2
