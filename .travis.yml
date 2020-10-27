@@ -19,7 +19,6 @@ jobs:
       script: env | sort
       if: type IN (push)
 
-
     - stage: S4
       script: env | sort
       if: type IN (pull_request) AND branch = master
@@ -27,3 +26,11 @@ jobs:
     - stage: S5
       script: env | sort
       if: type IN (push) AND branch = master
+
+    - stage: S6
+      script: env | sort
+      if: type IN (pull_request) AND branch =~ ^test-
+
+    - stage: S7
+      script: env | sort
+      if: type IN (push) AND branch =~ ^test-
