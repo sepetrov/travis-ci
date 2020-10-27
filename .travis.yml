@@ -26,3 +26,7 @@ jobs:
     - stage: S4 - branch =~ ^test-
       script: env | sort
       if: branch =~ ^test-
+
+    - stage: S5 - env(TRAVIS_PULL_REQUEST_BRANCH) =~ ^test-
+      script: env | sort
+      if: env(TRAVIS_PULL_REQUEST_BRANCH) =~ ^test-
