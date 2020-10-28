@@ -13,12 +13,17 @@ jobs:
     - stage: S0
       before_install: export TEST_BEFORE_INSTALL=true
       install: export TEST_INSTALL=true
-      before_script: travis_terminate 1
+      before_script: travis_terminate 0
       script: env | sort
       after_success: echo "After success!"
       deploy:
         - provider: script
           script: echo "Deploy 1!"
+    - script: env | sort
+      after_success: echo "After success!"
+      deploy:
+        - provider: script
+          script: echo "Deploy 2!"
 
     - stage: S1 - branch = master
       script: env | sort
