@@ -40,6 +40,6 @@ jobs:
       if: env(TRAVIS_PULL_REQUEST_BRANCH) =~ ^test-
 
     - stage: S6 - env(GIT_BRANCH) =~ ^test-
-      install: export GIT_BRANCH=$(git branch --show-current)
+      before_install: export GIT_BRANCH=$(git branch --show-current)
       script: env | sort
       if: env(GIT_BRANCH) =~ ^test-
