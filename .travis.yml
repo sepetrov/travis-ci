@@ -22,7 +22,7 @@ jobs:
     - name: S0 second time - failing
       script:
         - echo "Script One"
-        - fail.sh
+        - ./fail.sh
         - echo "Script Three"
       deploy:
         - provider: script
