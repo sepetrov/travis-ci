@@ -8,6 +8,9 @@ branches:
   only:
     - master
 
+before_install: export TEST_GLOBAL_BEFORE_INSTALL=true
+install: export TEST_GLOBAL_INSTALL=true
+
 jobs:
   include:
     - stage: S0
