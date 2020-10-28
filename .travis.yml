@@ -11,7 +11,13 @@ branches:
 jobs:
   include:
     - stage: S0
+      before_install: export TEST_BEFORE_INSTALL=true
+      install: export TEST_INSTALL=true
       script: env | sort
+      after_success: echo "After success!"
+      deploy:
+        - provider: script
+          script: echo "Deploy!"
 
     - stage: S1 - branch = master
       script: env | sort
