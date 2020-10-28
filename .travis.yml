@@ -2,14 +2,31 @@ os: linux
 
 dist: bionic
 
+language: shell
+
 branches:
   only:
     - master
 
+before_install: export TEST_GLOBAL_BEFORE_INSTALL=true
+install: export TEST_GLOBAL_INSTALL=true
+
 jobs:
   include:
     - stage: S0
+      before_install: export TEST_BEFORE_INSTALL=true
+      install: export TEST_INSTALL=true
+      before_script: travis_terminate 0
       script: env | sort
+      after_success: echo "After success!"
+      deploy:
+        - provider: script
+          script: echo "Deploy S0 / 1!"
+    - script: env | sort
+      after_success: echo "After success!"
+      deploy:
+        - provider: script
+          script: echo "Deploy S0 / 2!"
 
     - stage: S1 - branch = master
       script: env | sort
@@ -23,14 +40,20 @@ jobs:
       script: env | sort
       if: type IN (push)
 
-    - stage: S4 - type IN (pull_request) AND branch = master
-      script: env | sort
-      if: type IN (pull_request) AND branch = master
-
-    - stage: S5 - type IN (push) AND branch = master
-      script: env | sort
-      if: type IN (push) AND branch = master
-
-    - stage: S6 - branch =~ ^test-
+    - stage: S4 - branch =~ ^test-
       script: env | sort
       if: branch =~ ^test-
+
+    - stage: S5 - env(TRAVIS_PULL_REQUEST_BRANCH) =~ ^test-
+      script: env | sort
+      if: env(TRAVIS_PULL_REQUEST_BRANCH) =~ ^test-
+
+    - stage: S6 - env(GIT_BRANCH) =~ ^test-
+      before_install: export GIT_BRANCH=$(git branch --show-current)
+      script: env | sort
+      if: env(GIT_BRANCH) =~ ^test-
+
+deploy:
+  provider: script
+  script: echo "Deploy Last!"
+
