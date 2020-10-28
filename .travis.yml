@@ -9,29 +9,16 @@ branches:
     - master
 
 jobs:
-  fast_finish: true
   include:
     - stage: S0
       before_install: export TEST_BEFORE_INSTALL=true
       install: export TEST_INSTALL=true
+      before_script: travis_terminate 1
       script: env | sort
       after_success: echo "After success!"
       deploy:
         - provider: script
           script: echo "Deploy 1!"
-    - name: S0 second time - failing
-      script:
-        - echo "Script One"
-        - ./fail.sh
-        - echo "Script Three"
-      deploy:
-        - provider: script
-          script: echo "Deploy 2!"
-    - name: S0 third time
-      script: env | sort
-      deploy:
-        - provider: script
-          script: echo "Deploy 3!"
 
     - stage: S1 - branch = master
       script: env | sort
